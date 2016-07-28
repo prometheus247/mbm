@@ -1,16 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 # This is the main script of the mbm project
 
 # Declare Variables
-
-WDIR=/opt/PokemonGo-Bot
-CDIR=$WDIR/configs
-LDIR=/var/log/
-LOG=$LDIR/lastruns.log
-LINES=200
-SECONDS=300
-WUSR=nobody
+. /opt/mbm/config
 
 SICK=0
 OK=0

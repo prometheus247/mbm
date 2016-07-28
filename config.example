@@ -1,0 +1,7 @@
+WDIR=/opt/PokemonGo-Bot # Most important directory: The PokemonGo-Bot install dir
+CDIR=$WDIR/configs # Where your configs are
+LDIR=/var/log # Whats your desirec log dir
+LOG=$LDIR/mbm.log # In the log dir, how should the mbm log be called
+LINES=200 # For the checkups, how many lines you want to check? DONT CHANGE
+SECONDS=300 # Whats the delta range? Its the last entry distance in the log. DONT CHANGE
+WUSR=nobody # With what user you want to start the screen sessions? root is unwise and unsafe...
