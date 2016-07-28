@@ -8,3 +8,8 @@ Assumptions the script has:
 
 - The PoGo Usernames ending with @gmail.com
 - The mbm.sh will be executed as root manually or automatically as cron
+- Your config are looking like this (1 config per bot):
+-   PokemonGo-Bot/configs/config_01
+-   PokemonGo-Bot/configs/config_02
+-   [...]
+-   PokemonGo-Bot/configs/config_99
