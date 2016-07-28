@@ -39,7 +39,7 @@ for file in $CDIR/config_* ; do
                         # Get the last 2 logentries
                         echo "$(tail -2 $LDIR/$BOT.log)"
                         # Start the bot in a screen session
-                        su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py -u "$USERNAME" -p "$PASSWORD" -l "$LOCATION" -k "$GMAP""
+                        su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
                         # Add +1 to the counter
                         NORUN=$(($NORUN + 1))
                         echo "\033[31mStarted.\033[0m"
@@ -68,7 +68,7 @@ for file in $CDIR/config_* ; do
                                         # Kill the screen
                                         kill $SCREENID
                                         # Start the screen again
-                                        su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py -u "$USERNAME" -p "$PASSWORD" -l "$LOCATION" -k "$GMAP""
+                                        su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
                                         echo "$(date '+%x %X'): $BOT was defect - reSTARTING" >> $LOG
                                         # Add to the counter
                                         SICK=$(($SICK + 1))
