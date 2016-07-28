@@ -7,3 +7,4 @@ Its designed to run as "brainless" as possible, doing the thinking while you can
 Assumptions the script has:
 
 - The PoGo Usernames ending with @gmail.com
+- The mbm.sh will be executed as root manually or automatically as cron
