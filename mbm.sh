@@ -32,7 +32,7 @@ for file in $CDIR/config_* ; do
                 if [ -z $SCREENID ] ; then
                         echo "\033[31mHe isnt running at all???!\033[0m He aborted with:"
                         # Get the last 2 logentries
-                        echo "$(tail -2 $LDIR/screen-$BOT.log)"
+                        echo "$(tail -2 $LDIR/$BOT.log)"
                         # Start the bot in a screen session
                         su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
                         # Add +1 to the counter
@@ -44,13 +44,13 @@ for file in $CDIR/config_* ; do
                         echo "Screen is running. Lets see if he is actually working."
 
                         # Cut the Bot log into peaces to gather the last timestamp
-                        THEN=$(cat $LDIR/screen-$BOT.log | grep '[0-9][0-9]\:' |  cut -d" " -f1 | tail -1 | sed 's/\[//' | sed 's/\]//')
+                        THEN=$(cat $LDIR/$BOT.log | grep '[0-9][0-9]\:' |  cut -d" " -f1 | tail -1 | sed 's/\[//' | sed 's/\]//')
                         # Retrieve the delta from the recent time, and the time of the last logentry
                         DELTA=$(( $(date +%s) - $(date -d $THEN +%s) ))
                         # Combine movements and walking around as one "HITS" thing
-                        HITS=$(tail -$LINES $LDIR/screen-$BOT.log | grep -e Walking -e move |  wc -l)
+                        HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move |  wc -l)
                         # Count the pokemons captured
-                        POKEMON=$(tail -$LINES $LDIR/screen-$BOT.log | grep "Captured" |  wc -l)
+                        POKEMON=$(tail -$LINES $LDIR/$BOT.log | grep "Captured" |  wc -l)
 
                                 # Check hits and Delta with an OR. If one is failing, it will restart
                                 if [ "$HITS" -lt 1 ] || [  "$DELTA" -gt $SECONDS ] ; then
@@ -59,11 +59,11 @@ for file in $CDIR/config_* ; do
                                         echo "The Gnassel only moved $HITS times - chillaxed for $DELTA sec!?"
                                         echo "Famous last words before he went down:\n"
                                         # Last log lines
-                                        echo "$(tail -5 $LDIR/screen-$BOT.log)"
+                                        echo "$(tail -5 $LDIR/$BOT.log)"
                                         # Kill the screen
                                         kill $SCREENID
                                         # Start the screen again
-                                        screen -dmS $BOT python $WDIR/pokecli.py --config $file
+                                        su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
                                         echo "$(date '+%x %X'): $BOT was defect - reSTARTING" >> $LOG
                                         # Add to the counter
                                         SICK=$(($SICK + 1))

@@ -1,6 +1,6 @@
 WDIR=/opt/PokemonGo-Bot # Most important directory: The PokemonGo-Bot install dir
 CDIR=$WDIR/configs # Where your configs are
-LDIR=/var/log # Whats your desirec log dir
+LDIR=/var/log/screenlog # Whats your desired log dir, should be chmod 777
 LOG=$LDIR/mbm.log # In the log dir, how should the mbm log be called
 LINES=200 # For the checkups, how many lines you want to check? DONT CHANGE
 SECONDS=300 # Whats the delta range? Its the last entry distance in the log. DONT CHANGE
