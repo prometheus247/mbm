@@ -12,7 +12,7 @@ It is suggested to run the script as cronjob every 15 minutes if the manual exec
 
 Big thanks to
 
-virus82 - Hes driving along with the whole idea and is my main contributor
+viruz82 - Hes driving along with the whole idea and is my main contributor
 
 # How do I run?
 
