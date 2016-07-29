@@ -14,3 +14,12 @@ Big thanks to
 
 virus82 - Hes driving along with the whole idea and is my main contributor
 
+# How do I run?
+
+Check the Wiki plx
+
+# ToDo list
+
+* Split up configs to have one main config and several per bot unique configs combined
+* Add more detections for invalid logfile structure and automatic log creation (wihtout the install.sh)
+* Define more weakspots for "Sick detection"
