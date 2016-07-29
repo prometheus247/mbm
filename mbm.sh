@@ -53,7 +53,7 @@ for file in $CDIR/config_* ; do
                         # Retrieve the delta from the recent time, and the time of the last logentry
                         DELTA=$(( $(date +%s) - $(date -d $THEN +%s) ))
                         # Combine movements and walking around as one "HITS" thing
-                        HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move |  wc -l)
+                        HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move -e Exchanging |  wc -l)
                         # Count the pokemons captured
                         POKEMON=$(tail -$LINES $LDIR/$BOT.log | grep "Captured" |  wc -l)
 
