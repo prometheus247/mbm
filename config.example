@@ -1,3 +1,4 @@
+MBMDIR=/opt/mbm # The directory of the MBM - Multi Bot Maintainer
 WDIR=/opt/PokemonGo-Bot # Most important directory: The PokemonGo-Bot install dir
 CDIR=$WDIR/configs # Where your configs are
 LDIR=/var/log/screenlog # Whats your desired log dir, should be chmod 777
