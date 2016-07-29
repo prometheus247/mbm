@@ -8,6 +8,7 @@
 SICK=0
 OK=0
 NORUN=0
+BANNED=0
 
 # Lets get the rights properly
 chown -R $WUSR $WDIR
@@ -34,7 +35,7 @@ for file in $CDIR/config_* ; do
         GMAP=$(cat $file | grep gmapkey | cut -d'"' -f4)
 
 		# Check if the screen ID is actually set (not null)
-                if [ -z $SCREENID ] ; then
+                if [ -z "$SCREENID" ] ; then
                         echo "\033[31mHe isnt running at all???!\033[0m He aborted with:"
                         # Get the last 2 logentries
                         echo "$(tail -2 $LDIR/$BOT.log)"
@@ -56,35 +57,46 @@ for file in $CDIR/config_* ; do
                         HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move -e Exchanging |  wc -l)
                         # Count the pokemons captured
                         POKEMON=$(tail -$LINES $LDIR/$BOT.log | grep "Captured" |  wc -l)
+			# Is the bot banned?
+			BAN=$(tail -5 $LDIR/$BOT.log | grep -i "softbanned" )
+		
+				if [ -z $BAN ] ; then
+					
+					# Check hits and Delta with an OR. If one is failing, it will restart
+                                	if [ "$HITS" -lt 1 ] || [  "$DELTA" -gt $SECONDS ] ; then
 
-                                # Check hits and Delta with an OR. If one is failing, it will restart
-                                if [ "$HITS" -lt 1 ] || [  "$DELTA" -gt $SECONDS ] ; then
-
-                                        echo "\033[35mLooks sick to me, Boss:\033[0m"
-                                        echo "The Gnassel only moved $HITS times - chillaxed for $DELTA sec!?"
-                                        echo "Famous last words before he went down:\n"
-                                        # Last log lines
-                                        echo "$(tail -5 $LDIR/$BOT.log)"
-                                        # Kill the screen
-                                        kill $SCREENID
-                                        # Start the screen again
+                                        	echo "\033[35mLooks sick to me, Boss:\033[0m"
+                                        	echo "The Gnassel only moved $HITS times - chillaxed for $DELTA sec!?"
+                                        	echo "Famous last words before he went down:\n"
+                                        	# Last log lines
+                                       		 echo "$(tail -5 $LDIR/$BOT.log)"
+                                        	# Kill the screen
+                                        	kill $SCREENID
+                                       		# Start the screen again
+                                        	su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
+                                      		echo "$(date '+%x %X'): $BOT was defect - reSTARTING" >> $LOG
+                                        	# Add to the counter
+                                        	SICK=$(($SICK + 1))
+                                        	echo "\033[35mRestarted.\033[0m"
+                                	else
+                                        	echo "\nStats - last $LINES entries:"
+                                       		echo "\033[33m$POKEMON Pokemon captured.\033[0m"
+                                        	echo "\033[33m$HITS times moved.\033[0m"
+                                        	echo "\033[33m$DELTA sec since last update.\033[0m"
+                                        	echo "$(date '+%x %X'): $BOT OK. Last Run $THEN - $HITS moves in the last $LINES lines!" >> $LOG
+                                        	echo "\033[32mHes OK\033[0m."
+                                        	# Add to the counter
+                                        	OK=$(($OK + 1))
+                                	fi
+				else
+					echo "\033[36mThats a banned bot!\033[0m"
+					BANNED=$(($BANNED + 1))
+					# Start the screen again
                                         su $WUSR -c "screen -dmS $BOT python $WDIR/pokecli.py --config $file"
-                                        echo "$(date '+%x %X'): $BOT was defect - reSTARTING" >> $LOG
-                                        # Add to the counter
-                                        SICK=$(($SICK + 1))
-                                        echo "\033[35mRestarted.\033[0m"
-                                else
-                                        echo "\nStats - last $LINES entries:"
-                                        echo "\033[33m$POKEMON Pokemon captured.\033[0m"
-                                        echo "\033[33m$HITS times moved.\033[0m"
-                                        echo "\033[33m$DELTA sec since last update.\033[0m"
-                                        echo "$(date '+%x %X'): $BOT OK. Last Run $THEN - $HITS moves in the last $LINES lines!" >> $LOG
-                                        echo "\033[32mHes OK\033[0m."
-                                        # Add to the counter
-                                        OK=$(($OK + 1))
-                                fi
+					echo "$(date '+%x %X'): $BOT is softbanned!" >> $LOG
+				fi
+               fi
 
-                fi
 
 done
 
@@ -92,4 +104,5 @@ echo "----------------------------------------------"
 echo "Summary:\n"
 echo "\033[32mOK\033[0m:                $OK / $SUMBOTS Bots"
 echo "\033[35mSick\033[0m:              $SICK / $SUMBOTS Bots"
-echo "\033[31mDidnt run\033[0m:         $NORUN / $SUMBOTS Bots\n"
+echo "\033[31mDidnt run\033[0m:         $NORUN / $SUMBOTS Bots"
+echo "\033[36mBanned\033[0m:		   $BANNED / $SUMBOTS Bots\n"
