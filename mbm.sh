@@ -4,7 +4,7 @@
 
 # Declare Variables
 . /opt/mbm/config
-
+#
 SICK=0
 OK=0
 NORUN=0
