@@ -7,7 +7,7 @@
 ### END INFO
 
 # Declare Variables
-. /opt/mbm/config
+source /opt/mbm/config
 
 SICK=0
 OK=0
