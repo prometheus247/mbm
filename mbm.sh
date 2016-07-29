@@ -38,7 +38,7 @@ start() {
                 GMAP=$(cat $file | grep gmapkey | cut -d'"' -f4)
         
 						# Check if the screen ID is actually set (not null)
-                        if [ -z $SCREENID ] ; then
+                        if [ -z "$SCREENID" ] ; then
                                 echo -e "\033[31mHe isnt running at all???!\033[0m He aborted with:"
                                 # Get the last 2 logentries
                                 echo "$(tail -2 $LDIR/$BOT.log)"
@@ -107,7 +107,8 @@ start() {
         echo -e "Summary:\n"
         echo -e "\033[32mOK\033[0m:\t\t$OK / $SUMBOTS Bots"
         echo -e "\033[35mSick\033[0m:\t\t$SICK / $SUMBOTS Bots"
-        echo -e "\033[31mDidn't run\033[0m:\t$NORUN / $SUMBOTS Bots\n"
+        echo -e "\033[31mDidn't run\033[0m:\t$NORUN / $SUMBOTS Bots"
+	echo -e "\033[36mBanned\033[0m:\t\t$BANNED / $SUMBOTS Bots\n"
 }
 
 stop() {
