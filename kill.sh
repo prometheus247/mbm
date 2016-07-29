@@ -4,11 +4,7 @@
 # Useful if you pulled a new release of the bot or if you want to make central config changes. 
 
 # Declare Variables
-WDIR=/opt/PokemonGo-Bot
-CDIR=$WDIR/configs
-LDIR=/var/log/
-LOG=$LDIR/lastruns.log
-WUSR=nobody
+. /opt/mbm/config
 
 cd $WDIR
 
