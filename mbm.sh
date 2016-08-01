@@ -69,7 +69,7 @@ start() {
 											if [ "$HITS" -lt 1 ] || [  "$DELTA" -gt $SECONDS ] ; then
 
 												echo -e "\033[35mLooks sick to me, Boss:\033[0m"
-												echo "The Gnassel only moved $HITS times - chillaxed for $DELTA sec!?"
+												echo "I scanned the Gnassel for $HITS activities - he chillaxed for $DELTA sec!?"
 												echo -e "Famous last words before he went down:\n"
 												# Last log lines
 												echo "$(tail -5 $LDIR/$BOT.log)"
@@ -84,7 +84,7 @@ start() {
 											else
 												echo -e "\nStats - last $LINES entries:"
 												echo -e "\033[33m$POKEMON Pokemon captured.\033[0m"
-												echo -e "\033[33m$HITS times moved.\033[0m"
+												echo -e "\033[33m$HITS activities.\033[0m"
 												echo -e "\033[33m$DELTA sec since last update.\033[0m"
 												echo "$(date '+%x %X'): $BOT OK. Last Run $THEN - $HITS moves in the last $LINES lines!" >> $LOG
 												echo -e "\033[32mHes OK\033[0m."
