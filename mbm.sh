@@ -53,7 +53,7 @@ start() {
                                 echo "Screen is running. Let's see if he is actually working."
         
                                 # Cut the Bot log into peaces to gather the last timestamp
-                                THEN=$(cat $LDIR/$BOT.log | grep '[0-9][0-9]\:' | cut -d" " -f1 | tail -1 | sed 's/\[//' | sed 's/\]//')
+                                THEN=$(cat $LDIR/$BOT.log | grep '[0-9][0-9]\:' | tail -1 | cut -d" " -f2 | cut -d"," -f1)
                                 # Retrieve the delta from the recent time, and the time of the last logentry
                                 DELTA=$(( $(date +%s) - $(date -d $THEN +%s) ))
                                 # Combine movements, walking and exchanging around as one "HITS" thing
