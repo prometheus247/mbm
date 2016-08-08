@@ -57,7 +57,7 @@ start() {
                                 # Retrieve the delta from the recent time, and the time of the last logentry
                                 DELTA=$(( $(date +%s) - $(date -d $THEN +%s) ))
                                 # Combine movements, walking and exchanging around as one "HITS" thing
-                                HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move -e Exchanging | wc -l)
+                                HITS=$(tail -$LINES $LDIR/$BOT.log | grep -e Walking -e move -e Exchanging -e MoveToFort | wc -l)
                                 # Count the pokemons captured
                                 POKEMON=$(tail -$LINES $LDIR/$BOT.log | grep "Captured" |  wc -l)
                                 # Is the bot banned?
